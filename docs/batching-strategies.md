@@ -17,7 +17,7 @@ It is recommended to wait for late arriving reports when collecting reports for 
 
 The following visual shows late arriving reports being stored in the appropriate batches according to scheduled report time. Batch T represents scheduled_report_time, and T+X represents time waited for delayed reports. This results in a summary report that includes the majority of reports that are included in the batch which corresponds to their scheduled report time. 
 
-[image 1]
+![batching](assets/batching.jpg)
 
 ### Aggregatable report accounting
 The Aggregation Service maintains a [“no duplicates” rule](https://github.com/WICG/attribution-reporting-api/blob/main/AGGREGATION_SERVICE_TEE.md#no-duplicates-rule). This rule enforces that all Aggregatable reports with the same shared ID must be included in the same batch. 
@@ -30,11 +30,11 @@ A [shared ID](https://github.com/WICG/attribution-reporting-api/blob/main/AGGREG
 
 The following image demonstrates the shared_info components that are hashed together to generate a Shared ID. 
 
-[image 2]
+![shared-id](assets/shared-id.jpg)
 
 The following image demonstrates how two different reports can have the same shared ID:
 
-[image 3]
+![shared-report-time](assets/shared-report-time.jpg)
 
 **Note:** scheduled_report_time is truncated by hour, and source_registration_time is truncated by day. Report_id is not used in shared ID creation. Time granularity may be updated in the future.
 
@@ -48,7 +48,7 @@ Each report is assigned a shared ID, which is an ID generated from combined data
 
 The following image shows an example where reports with the same shared ID across batches can cause the later batch to fail. In the image, you can see that two or more reports with the same shared ID e679aa are batched into different batches #1 and #2.  Since the budget for all reports with shared ID e679aa is consumed during Batch #1 summary report generation, Batch #2 is not allowed and fails with an error. 
 
-[image 4]
+![duplication](assets/duplication.jpg)
 
 ## Batch reports
 The following are recommended ways to batch reports to avoid duplicates and optimize aggregate report accounting. 
